@@ -32,7 +32,11 @@ function Article_Full({ article, comments }) {
         </div>
 
         <div className="articleVotes">
-          <h4>Votes: {article.votes}</h4>
+          <div>
+            Votes: {article.votes}
+            <input type="button" value="+" />
+            <input type="button" value="-" />
+          </div>
         </div>
 
         <Comment_Container article_id={article.article_id} />
