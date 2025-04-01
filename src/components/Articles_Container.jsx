@@ -65,7 +65,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics }) {
       </div>
 
       {articleSelect === undefined ? (
-        <div>
+        <div className="articlesContainerPreview">
           {articles
             .filter((article) => {
               return (

@@ -5,21 +5,15 @@ function Article_Preview({ article, comments, onSelect }) {
     <>
       <div
         onClick={() => onSelect(article.article_id)}
-        className="article_full"
+        className="article_preview"
       >
         <div className="articleTitletopic">
-          <p>
-            {article.topic} : {article.author}
-          </p>
+          {article.topic} : {article.author}
         </div>
 
-        <div className="articleTitle">
-          <p>{article.title}</p>
-        </div>
+        <div className="articleTitlePreview">{article.title}</div>
 
-        <div className="articleTitleDate">
-          <p>{article.created_at}</p>
-        </div>
+        <div className="articleTitleDate">{article.created_at}</div>
 
         <div>
           <img
@@ -29,9 +23,7 @@ function Article_Preview({ article, comments, onSelect }) {
           />
         </div>
 
-        <div className="articleVotes">
-          <h4>Votes: {article.votes}</h4>
-        </div>
+        <div className="articleVotes">Votes: {article.votes}</div>
       </div>
     </>
   );

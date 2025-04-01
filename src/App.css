@@ -24,7 +24,15 @@ header {
   transition: all 0.3s ease
 }
 
-.article_full:hover {
+.article_preview {
+  border: solid 1px;
+  border-color: rgb(17, 0, 255);
+  margin: 20px;
+  cursor: pointer;
+
+}
+
+.article_preview:hover {
   border-color: rgb(0, 187, 255);
   transform: scale(1.01);
 }
@@ -41,13 +49,20 @@ header {
   text-align: left;
   background-color: rgb(255, 255, 255);
   display: block;
-    font-size: 2em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    unicode-bidi: isolate;
+  font-size: 2em;
+  font-weight: bold;
+  unicode-bidi: isolate;
+}
+
+.articleTitlePreview {
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  background-color: rgb(255, 255, 255);
+  display: block;
+  font-size: 1em;
+  font-weight: bold;
+  unicode-bidi: isolate;
 }
 
 .articleTitletopic {
@@ -57,10 +72,17 @@ header {
   background-color: rgb(255, 255, 255);
   display: block;
     font-size: .8em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    font-weight: normal;
+    unicode-bidi: isolate;
+}
+
+.articleVotes {
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  background-color: rgb(255, 255, 255);
+  display: block;
+    font-size: .8em;
     font-weight: normal;
     unicode-bidi: isolate;
 }
@@ -72,19 +94,61 @@ header {
   background-color: rgb(255, 255, 255);
   display: block;
     font-size: .7em;
-    margin-block-start: 0.83em;
-    margin-block-end: 0.83em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
     font-weight: normal;
     unicode-bidi: isolate;
 }
 
 .articleImage {
+  margin: 0px;
+  padding: 0px;
   max-width: 100%;
   height: auto;
 }
 
-.button-hover:hover {
-  border-color: rgb(0, 255, 76);
+
+
+.articlesContainerPreview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  background-color: rgb(214, 214, 214);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.comment {
+margin-bottom: 20px;
+  padding: 0px;
+  text-align: left;
+  background-color: rgb(255, 255, 255);
+
+  font-size: 1em;
+  font-weight: normal;
+
+}
+
+.commentUser {
+  margin: 0px;
+  padding: 0px;
+  text-align: left;
+  background-color: rgb(255, 255, 255);
+
+  font-size: 1em;
+  font-weight: bold;
+
+}
+
+
+
+.commentsHeader {
+  margin-top: 20px;
+margin-left: 20px;
+  padding: 0px;
+  text-align: left;
+  background-color: rgb(255, 255, 255);
+
+  font-size: 1em;
+  font-weight: bold;
+
 }
