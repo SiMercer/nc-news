@@ -3,7 +3,7 @@ import Comment_Container from "./Comment_Container";
 import { patchArticleVotes } from "../api";
 import { useState, useEffect } from "react";
 
-function Article_Full({ article, comments }) {
+function Article_Full({ article, comments, user }) {
   const [articlesVotesTally, setArticlesVotesTally] = useState(article.votes);
   const [voteMade, setVoteMade] = useState("");
 
@@ -68,7 +68,7 @@ function Article_Full({ article, comments }) {
           </div>
         </div>
 
-        <Comment_Container article_id={article.article_id} />
+        <Comment_Container article_id={article.article_id} user={user} />
       </div>
     </>
   );

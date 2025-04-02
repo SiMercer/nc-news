@@ -3,7 +3,7 @@ import { getArticles, getCommentsByArticleByID } from "../api";
 import Article_Full from "./Article_Full";
 import Article_Preview from "./Article_Preview";
 
-function Articles_Container({ setSelectedTopic, selectedTopic, topics }) {
+function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const [articles, setArticles] = useState([]);
   const [articleSelect, setArticleSelect] = useState();
   const [comments, setComments] = useState({});
@@ -99,6 +99,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics }) {
           <Article_Full
             article={articles.find((a) => a.article_id === articleSelect)}
             comments={comments[articleSelect] || []}
+            user={user}
           />
         </div>
       )}
