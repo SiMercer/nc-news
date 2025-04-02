@@ -1,7 +1,26 @@
 import React from "react";
 import Comment_Container from "./Comment_Container";
+import { patchArticleVotes } from "../api";
+import { useState, useEffect } from "react";
 
 function Article_Full({ article, comments }) {
+  const [articlesVotesTally, setArticlesVotesTally] = useState(article.votes);
+  const [voteMade, setVoteMade] = useState("");
+
+  const handleVotePatch = (vote) => {
+    setVoteMade(vote === "dec" ? -1 : 1);
+    const voteChange = vote === "dec" ? -1 : 1;
+    patchArticleVotes(article.article_id, voteChange);
+
+    if (vote === "dec") {
+      setArticlesVotesTally(article.votes - 1);
+    }
+
+    if (vote === "inc") {
+      setArticlesVotesTally(article.votes + 1);
+    }
+  };
+
   return (
     <>
       <div className="article_full">
@@ -33,9 +52,19 @@ function Article_Full({ article, comments }) {
 
         <div className="articleVotes">
           <div>
-            Votes: {article.votes}
-            <input type="button" value="+" />
-            <input type="button" value="-" />
+            Votes: {articlesVotesTally}
+            <button
+              disabled={voteMade === 1}
+              onClick={() => handleVotePatch("inc")}
+            >
+              Add
+            </button>
+            <button
+              disabled={voteMade === -1}
+              onClick={() => handleVotePatch("dec")}
+            >
+              Min
+            </button>
           </div>
         </div>
 

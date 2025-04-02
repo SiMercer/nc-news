@@ -38,4 +38,20 @@ const getCommentsByArticleByID = (article_id) => {
     });
 };
 
-export { getTopics, getArticles, getArticleByID, getCommentsByArticleByID };
+const patchArticleVotes = (article_id, vote) => {
+  console.log(typeof article_id, article_id);
+  return api
+    .patch(`/articles/${article_id}`, { inc_votes: vote })
+    .then((data) => {
+      console.log(data);
+      return data;
+    });
+};
+
+export {
+  getTopics,
+  getArticles,
+  getArticleByID,
+  getCommentsByArticleByID,
+  patchArticleVotes,
+};
