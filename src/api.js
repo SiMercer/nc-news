@@ -23,29 +23,29 @@ const getArticleByID = (article_id) => {
 };
 
 const getCommentsByArticleByID = (article_id) => {
+  return api.get(`/articles/${article_id}/comments`).then((res) => {
+    return res.data.comments || [];
+  });
+};
+
+const postCommentByArticleID = (article_id, comment) => {
   return api
-    .get(`/articles/${article_id}/comments`)
-    .then((res) => {
-      return res.data.comments || [];
-    })
-    .catch((err) => {
-      if (err.response && err.response.status === 404) {
-        return [];
-      } else {
-        console.error("Error fetching comments:", err);
-        return [];
-      }
-    });
+    .post(`/articles/${article_id}/comments`, comment)
+    .then((res) => res.data.comment);
 };
 
 const patchArticleVotes = (article_id, vote) => {
-  console.log(typeof article_id, article_id);
   return api
     .patch(`/articles/${article_id}`, { inc_votes: vote })
     .then((data) => {
-      console.log(data);
       return data;
     });
+};
+
+const getUsers = () => {
+  return api.get("/users").then((data) => {
+    return data;
+  });
 };
 
 export {
@@ -54,4 +54,6 @@ export {
   getArticleByID,
   getCommentsByArticleByID,
   patchArticleVotes,
+  getUsers,
+  postCommentByArticleID,
 };

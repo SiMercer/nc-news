@@ -152,3 +152,11 @@ margin-left: 20px;
   font-weight: bold;
 
 }
+
+
+.headerProfileImg{
+  border: solid rgb(82, 82, 82);
+  border-radius: 50%;
+  width:100px;
+  height:100px;
+}
