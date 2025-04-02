@@ -64,6 +64,13 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics }) {
         </select>
       </div>
 
+      <div>
+        <p>
+          <a href="/">Home</a> > <a href="/articles">Articles</a> >
+          <a href="">{selectedTopic}</a>
+        </p>
+      </div>
+
       {articleSelect === undefined ? (
         <div className="articlesContainerPreview">
           {articles
@@ -88,7 +95,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics }) {
             ))}
         </div>
       ) : (
-        <div onClick={() => handleArticleSelect(undefined)}>
+        <div>
           <Article_Full
             article={articles.find((a) => a.article_id === articleSelect)}
             comments={comments[articleSelect] || []}
