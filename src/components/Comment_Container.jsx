@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { getCommentsByArticleByID, postCommentByArticleID } from "../api";
-import Comments from "./Comments_Card";
+import {
+  getCommentsByArticleByID,
+  postCommentByArticleID,
+  deleteCommentsByArticleByID,
+} from "../api";
+import CommentCard from "./Comments_Card";
 
 function Comment_Container({ article_id, user }) {
   const [comments, setComments] = useState([]);
   const [error, setError] = useState(null);
   const [newComment, setNewComment] = useState("");
   const [showAddComment, setShowAddComment] = useState(false);
+  const [confirmingCommentId, setConfirmingCommentId] = useState(null);
+  const [deletedComments, setDeletedComments] = useState([]);
 
   useEffect(() => {
     if (!article_id) return;
@@ -22,16 +28,11 @@ function Comment_Container({ article_id, user }) {
       });
   }, [article_id]);
 
-  const handelAddComment = () => {
-    var x = document.getElementById("addCommentDiv");
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
+  const handleToggleAddComment = () => {
+    setShowAddComment((prev) => !prev);
   };
 
-  const handelPostComment = (event) => {
+  const handlePostComment = (event) => {
     event.preventDefault();
     const comment = {
       username: user.username,
@@ -43,22 +44,32 @@ function Comment_Container({ article_id, user }) {
     postCommentByArticleID(article_id, comment).then((postedComment) => {
       setComments((prev) => [postedComment, ...prev]);
       setNewComment("");
+      setShowAddComment(false);
     });
-    handelAddComment();
+  };
+
+  const handleDeleteClick = (commentId) => {
+    setConfirmingCommentId(commentId);
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmingCommentId(null);
+  };
+
+  const handleConfirmDelete = (commentId) => {
+    setDeletedComments((prev) => [...prev, commentId]);
+    setConfirmingCommentId(null);
+    deleteCommentsByArticleByID(commentId);
   };
 
   return (
     <section className="Comments">
       <div>
-        <button onClick={handelAddComment}>Post Comment</button>
+        <button onClick={handleToggleAddComment}>Post Comment</button>
       </div>
-      <div
-        id="addCommentDiv"
-        style={{
-          display: "none",
-        }}
-      >
-        <form onSubmit={handelPostComment}>
+
+      {showAddComment && (
+        <form onSubmit={handlePostComment}>
           <input
             name="commentBody"
             value={newComment}
@@ -69,9 +80,28 @@ function Comment_Container({ article_id, user }) {
             Submit
           </button>
         </form>
-      </div>
+      )}
+
       {error && <p>{error}</p>}
-      <Comments comments={comments} />
+
+      <div className="articleComments">
+        <div className="commentsHeader">Comments:</div>
+        <ul>
+          {comments
+            .filter((comment) => !deletedComments.includes(comment.comment_id))
+            .map((comment) => (
+              <CommentCard
+                key={comment.comment_id}
+                user={user}
+                comment={comment}
+                isConfirming={confirmingCommentId === comment.comment_id}
+                onDeleteClick={handleDeleteClick}
+                onCancelClick={handleCancelDelete}
+                onConfirmDelete={handleConfirmDelete}
+              />
+            ))}
+        </ul>
+      </div>
     </section>
   );
 }

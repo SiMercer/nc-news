@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { getArticles, getCommentsByArticleByID } from "../api";
 import Article_Full from "./Article_Full";
 import Article_Preview from "./Article_Preview";
+import { useNavigate } from "react-router-dom";
 
 function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const [articles, setArticles] = useState([]);
   const [articleSelect, setArticleSelect] = useState();
   const [comments, setComments] = useState({});
+  const navigate = useNavigate();
 
   const handleTopicChange = (event) => {
     setSelectedTopic(event.target.value);
@@ -47,6 +49,31 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
 
   return (
     <section className="articles">
+      <section>
+        <div>
+          <button onClick={() => navigate("/")} className="navText">
+            Home
+          </button>
+          <button
+            onClick={() => {
+              setSelectedTopic("All");
+              handleArticleSelect(undefined);
+            }}
+            className="navText"
+          >
+            &gt; Articles
+          </button>
+          {selectedTopic !== "All" && (
+            <button
+              onClick={() => handleArticleSelect(undefined)}
+              className="navText"
+            >
+              &gt; {selectedTopic}
+            </button>
+          )}
+        </div>
+      </section>
+
       <div className="topics">
         <label htmlFor="topics">Choose a Topic:</label>
         <select
@@ -57,18 +84,9 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
         >
           <option value="All">All</option>
           {topics.map((topic) => (
-            <option key={topic.slug} value={topic.slug}>
-              {topic.slug}
-            </option>
+            <option value={topic.slug}>{topic.slug}</option>
           ))}
         </select>
-      </div>
-
-      <div>
-        <p>
-          <a href="/">Home</a> > <a href="/articles">Articles</a> >
-          <a href="">{selectedTopic}</a>
-        </p>
       </div>
 
       {articleSelect === undefined ? (
