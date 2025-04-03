@@ -8,21 +8,25 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const [articles, setArticles] = useState([]);
   const [articleSelect, setArticleSelect] = useState();
   const [comments, setComments] = useState({});
+  const [sort_by, setSort_by] = useState("created_at");
+  const [order, setOrder] = useState("desc");
+  const [badTopicErr, setBadTopicErr] = useState(false);
   const navigate = useNavigate();
   const url = useLocation();
-
+  const searchParams = new URLSearchParams(url.search);
   useEffect(() => {
-    const searchParams = new URLSearchParams(url.search);
     const topicByParams = searchParams.get("topics");
 
     if (!topics || topics.length === 0) return;
 
-    topics.forEach((topic) => {
-      if (topic.slug === topicByParams) {
-        console.log("YES A MATCH");
-        setSelectedTopic(topic.slug);
-      }
-    });
+    const isValidTopic = topics.some((topic) => topic.slug === topicByParams);
+
+    if (isValidTopic) {
+      setSelectedTopic(topicByParams);
+      setBadTopicErr(false);
+    } else {
+      if (topicByParams) setBadTopicErr(true);
+    }
   }, [topics, url.search]);
 
   const handleTopicChange = (event) => {
@@ -36,10 +40,10 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   };
 
   useEffect(() => {
-    getArticles().then((res) => {
+    getArticles(sort_by, order).then((res) => {
       setArticles(res.data.articles);
     });
-  }, []);
+  }, [sort_by, order]);
 
   useEffect(() => {
     articles.forEach((article) => {
@@ -61,7 +65,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
         }));
       });
     });
-  }, [articles, articleSelect]);
+  }, [articles, articleSelect, sort_by]);
 
   return (
     <section className="articles">
@@ -98,12 +102,44 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
           value={selectedTopic}
           onChange={handleTopicChange}
         >
-          <option value="All">All</option>
           {topics.map((topic) => (
             <option key={topic.slug} value={topic.slug}>
               {topic.slug}
             </option>
           ))}
+        </select>
+      </div>
+
+      <section>
+        {badTopicErr && (
+          <div className="badTopicErr">
+            Topic "{searchParams.get("topics")}" was not found.
+          </div>
+        )}
+      </section>
+
+      <div className="sortBy">
+        <label htmlFor="sortBy">Sort By:</label>
+        <select
+          name="sortBy"
+          id="sortBy"
+          value={sort_by}
+          onChange={(event) => setSort_by(event.target.value)}
+        >
+          <option value="author">Author</option>
+          <option value="title">Title</option>
+          <option value="created_at">Date</option>
+          <option value="votes">Votes</option>
+        </select>
+
+        <select
+          name="orderBy"
+          id="orderBy"
+          value={order}
+          onChange={(event) => setOrder(event.target.value)}
+        >
+          <option value="desc">desc</option>
+          <option value="asc">asc</option>
         </select>
       </div>
 

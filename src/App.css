@@ -207,3 +207,10 @@ margin-left: 20px;
   border-color: rgb(17, 0, 255);
   margin: 20px;
 }
+
+.badTopicErr{
+color: red;
+font-size:20px;
+font-weight: bold;
+
+}
