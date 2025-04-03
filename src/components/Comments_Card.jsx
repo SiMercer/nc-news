@@ -1,21 +1,39 @@
 import React from "react";
 
-function Comments({ comments }) {
+function CommentCard({
+  comment,
+  user,
+  isConfirming,
+  onDeleteClick,
+  onCancelClick,
+  onConfirmDelete,
+}) {
+  const isAuthor = comment.author === user.username;
+
   return (
-    <div className="articleComments">
-      <div className="commentsHeader">Comments:</div>
+    <li>
+      <div className="commentUser">{comment.author}</div>
 
-      <ul>
-        {comments.map((comment) => (
-          <li key={comment.comment_id}>
-            <div className="commentUser">{comment.author} :</div>
+      {isAuthor && !isConfirming && (
+        <div className="deleteReq">
+          <button onClick={() => onDeleteClick(comment.comment_id)}>
+            Delete Comment
+          </button>
+        </div>
+      )}
 
-            <div className="comment">{comment.body}</div>
-          </li>
-        ))}
-      </ul>
-    </div>
+      {isAuthor && isConfirming && (
+        <div className="deleteComfirm">
+          <button onClick={() => onConfirmDelete(comment.comment_id)}>
+            Confirm
+          </button>
+          <button onClick={onCancelClick}>Cancel</button>
+        </div>
+      )}
+
+      <div className="comment">{comment.body}</div>
+    </li>
   );
 }
 
-export default Comments;
+export default CommentCard;

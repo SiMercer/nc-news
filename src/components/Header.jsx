@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/news_app_logo.png";
 
 function Header({ user }) {
   const navigate = useNavigate();
@@ -9,9 +10,16 @@ function Header({ user }) {
   };
 
   return (
-    <header className="header">
+    <header className="header" style={{ display: "flex" }}>
       <div>
-        <img src="" alt="Logo" className="headerLogo" />
+        <img
+          src={logo}
+          alt="Logo"
+          className="headerLogo"
+          onClick={() => {
+            navigate("/");
+          }}
+        />
       </div>
 
       <div
@@ -28,7 +36,7 @@ function Header({ user }) {
           style={{
             width: "100px",
             height: "100px",
-            backgroundImage: `url(${user.avatar_url})`,
+            backgroundImage: `url(${user?.avatar_url || "default-avatar.png"})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             borderRadius: "50%",

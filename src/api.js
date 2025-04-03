@@ -34,6 +34,12 @@ const postCommentByArticleID = (article_id, comment) => {
     .then((res) => res.data.comment);
 };
 
+const deleteCommentsByArticleByID = (comment_id) => {
+  return api.delete(`/comments/${comment_id}`).then((res) => {
+    return data;
+  });
+};
+
 const patchArticleVotes = (article_id, vote) => {
   return api
     .patch(`/articles/${article_id}`, { inc_votes: vote })
@@ -56,4 +62,5 @@ export {
   patchArticleVotes,
   getUsers,
   postCommentByArticleID,
+  deleteCommentsByArticleByID,
 };
