@@ -8,8 +8,7 @@ function TopicsCard({ article, setSelectedTopic }) {
     <section
       className="topic_preview"
       onClick={() => {
-        setSelectedTopic(article.topic);
-        navigate("/articles");
+        navigate(`/articles?topics=${article.topic}`);
       }}
     >
       <div className="topicCardTitle">{article.topic}</div>
