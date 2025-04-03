@@ -10,10 +10,12 @@ const getTopics = () => {
   });
 };
 
-const getArticles = () => {
-  return api.get("/articles").then((data) => {
-    return data;
-  });
+const getArticles = (sort_by = "created_at", order = "desc") => {
+  return api
+    .get("/articles", {
+      params: { sort_by, order },
+    })
+    .then((res) => res);
 };
 
 const getArticleByID = (article_id) => {

@@ -6,9 +6,10 @@ import Header from "./components/Header.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import Articles_Container from "./components/Articles_Container.jsx";
 import UserProfile from "./components/User_Profile.jsx";
+import Error from "./components/Errors.jsx";
 
 function App() {
-  const [topics, setTopics] = useState(["coding"]);
+  const [topics, setTopics] = useState(["All"]);
   const [selectedTopic, setSelectedTopic] = useState("");
   const [user, setUser] = useState("");
 
@@ -18,7 +19,7 @@ function App() {
     });
 
     getTopics().then((res) => {
-      setTopics(res.data);
+      setTopics([{ slug: "All" }, ...res.data]);
     });
   }, []);
 
@@ -47,6 +48,18 @@ function App() {
             />
           }
         />
+        <Route
+          path="/articles/:article_id"
+          element={
+            <Articles_Container
+              topics={topics}
+              selectedTopic={selectedTopic}
+              setSelectedTopic={setSelectedTopic}
+              user={user}
+            />
+          }
+        />
+
         {/* <Route
           path="/topic"
           element={
@@ -63,6 +76,8 @@ function App() {
           path="/user"
           element={<UserProfile user={user} setUser={setUser} />}
         />
+
+        <Route path="*" element={<Error />} />
       </Routes>
     </div>
   );
