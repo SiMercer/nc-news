@@ -10,11 +10,13 @@ const getTopics = () => {
   });
 };
 
-const getArticles = () => {
-  return api.get("/articles").then((data) => {
+const getArticles = (sort_by, order) => {
+  return api.get(`/articles?sort_by=${sort_by}&order=${order}`).then((data) => {
     return data;
   });
 };
+
+// return api.get(`/articles?sort_by=${sort_by}&order=${order}`).then((data) => {
 
 const getArticleByID = (article_id) => {
   return api.get("/articles/${article_id}").then((data) => {

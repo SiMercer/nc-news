@@ -6,7 +6,7 @@ function LandingPage({ topics, setSelectedTopic }) {
   const [articleForTopics, setArticleForTopics] = useState([]);
 
   useEffect(() => {
-    getArticles()
+    getArticles("created_at", "desc")
       .then((res) => {
         const articles = res.data.articles || [];
 
