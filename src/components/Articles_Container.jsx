@@ -2,17 +2,33 @@ import { useState, useEffect } from "react";
 import { getArticles, getCommentsByArticleByID } from "../api";
 import Article_Full from "./Article_Full";
 import Article_Preview from "./Article_Preview";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const [articles, setArticles] = useState([]);
   const [articleSelect, setArticleSelect] = useState();
   const [comments, setComments] = useState({});
   const navigate = useNavigate();
+  const url = useLocation();
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(url.search);
+    const topicByParams = searchParams.get("topics");
+
+    if (!topics || topics.length === 0) return;
+
+    topics.forEach((topic) => {
+      if (topic.slug === topicByParams) {
+        console.log("YES A MATCH");
+        setSelectedTopic(topic.slug);
+      }
+    });
+  }, [topics, url.search]);
 
   const handleTopicChange = (event) => {
     setSelectedTopic(event.target.value);
     handleArticleSelect(undefined);
+    navigate(`/articles?topics=${event.target.value}`);
   };
 
   const handleArticleSelect = (article_id) => {
@@ -84,7 +100,9 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
         >
           <option value="All">All</option>
           {topics.map((topic) => (
-            <option value={topic.slug}>{topic.slug}</option>
+            <option key={topic.slug} value={topic.slug}>
+              {topic.slug}
+            </option>
           ))}
         </select>
       </div>

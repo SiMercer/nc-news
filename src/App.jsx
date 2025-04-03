@@ -47,6 +47,17 @@ function App() {
             />
           }
         />
+        {/* <Route
+          path="/topic"
+          element={
+            <Articles_Container
+              topics={topics}
+              selectedTopic={selectedTopic}
+              setSelectedTopic={setSelectedTopic}
+              user={user}
+            />
+          }
+        /> */}
 
         <Route
           path="/user"
