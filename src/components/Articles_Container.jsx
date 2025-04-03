@@ -8,6 +8,8 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const [articles, setArticles] = useState([]);
   const [articleSelect, setArticleSelect] = useState();
   const [comments, setComments] = useState({});
+  const [sort_by, setSort_by] = useState("created_at");
+  const [order, setOrder] = useState("desc");
   const navigate = useNavigate();
   const url = useLocation();
 
@@ -36,10 +38,10 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   };
 
   useEffect(() => {
-    getArticles().then((res) => {
+    getArticles(sort_by, order).then((res) => {
       setArticles(res.data.articles);
     });
-  }, []);
+  }, [sort_by, order]);
 
   useEffect(() => {
     articles.forEach((article) => {
@@ -61,7 +63,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
         }));
       });
     });
-  }, [articles, articleSelect]);
+  }, [articles, articleSelect, sort_by]);
 
   return (
     <section className="articles">
@@ -104,6 +106,31 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
               {topic.slug}
             </option>
           ))}
+        </select>
+      </div>
+
+      <div className="sortBy">
+        <label htmlFor="sortBy">Sort By:</label>
+        <select
+          name="sortBy"
+          id="sortBy"
+          value={sort_by}
+          onChange={(event) => setSort_by(event.target.value)}
+        >
+          <option value="author">Author</option>
+          <option value="title">Title</option>
+          <option value="created_at">Date</option>
+          <option value="votes">Votes</option>
+        </select>
+
+        <select
+          name="orderBy"
+          id="orderBy"
+          value={order}
+          onChange={(event) => setOrder(event.target.value)}
+        >
+          <option value="desc">desc</option>
+          <option value="asc">asc</option>
         </select>
       </div>
 
