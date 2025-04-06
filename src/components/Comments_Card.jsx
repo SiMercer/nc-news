@@ -12,7 +12,9 @@ function CommentCard({
 
   return (
     <li>
-      <div className="commentUser">{comment.author}</div>
+      <div className="commentUser">
+        {comment.author} :<h6>{comment.created_at}</h6>
+      </div>
 
       {isAuthor && !isConfirming && (
         <div className="deleteReq">
@@ -32,6 +34,9 @@ function CommentCard({
       )}
 
       <div className="comment">{comment.body}</div>
+      <div>
+        <h6>Votes {comment.votes}</h6>
+      </div>
     </li>
   );
 }

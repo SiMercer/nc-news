@@ -1,42 +1,311 @@
-#root {
-  max-width: 640px;
+
+
+:root {
+  --max-width: 1200px;
+  --font-size-base: 16px;
+  --font-family: 'Inter', sans-serif;
+  --primary-color: #0077cc;
+  --bg-color: #f9f9f9;
+}
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: #222;
+
+}
+
+.container {
+  max-width: var(--max-width);
   margin: 0 auto;
-  text-align: center;
+  padding: 1rem;
+}
+
+.header, .footer {
+
+height: 125px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  font-size:5rem;
+  font-family: system-ui;
+  font-weight: 700;
+  align-items: center;
+  display:flex;
+  border-radius: 20px;
+
+}
+
+.headerLogo {
+  padding-top: 0px;
+  margin: 0px 0px 0px 0px;
+  background: white;
+    width: 10%;
+    height: auto;
+
+
+}
+
+.headerText{
+  padding: 0px 10px 0px 25px;
+
+  font-size:5rem;
+  font-family: system-ui;
+  font-weight: 700;
+  align-items: center;
+  display:flex;
+  border-radius: 20px;
+
 }
 
 
-header {
-  border: solid 2px;
-  border-color: rgb(255, 0, 0);
-  display:flexbox
+.main-content {
+  display: flex;
+  gap: 2rem;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.articles{
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  padding: 4px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.filtersBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  margin: 0px 0;
+
+}
+
+.filtersBar .topics,
+.filtersBar .sortBy {
+  display: flex;
+  gap: 10px;
+  align-items: left;
+  padding-left: 0px;
+  margin-left: 10px;
 }
 
 
-.landing-page {
-  border: solid 2px;
-  border-color: rgb(0, 0, 0);
+
+.headerProfileUsername{
+  padding: 0px 0px 0px 0px;
+
+  font-size:1rem;
+  font-family: system-ui;
+  font-weight: 700;
+  align-items: center;
+  display:flex;
+  border-radius: 20px;
+
+
 }
 
-.article_full {
-  border: solid 1px;
-  border-color: rgb(17, 0, 255);
-  margin: 20px;
+.headerProfileImg{
 
-  transition: all 0.3s ease
+  border: solid 2px rgb(0, 0, 0);
+}
+
+
+.articleTitleRow {
+  display: flex;
+  justify-content: space-between; /* spread them out */
+  align-items: center;            /* vertically align */
+  flex-wrap: wrap;                /* allow wrapping on smaller screens */
+  gap: 10px;                      /* optional spacing */
+}
+
+.articleTitle {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.articleTitleDate {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+
+
+
+/* PREVIEW ARTICLE STUFF */
+
+
+.articlesContainerPreview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  background-color: rgb(255, 255, 255);
+  max-width: 1200px; /* You already defined this in :root */
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .article_preview {
-  border: solid 1px;
-  border-color: rgb(17, 0, 255);
-  margin: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  border-radius: 20px;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: auto; /* Let content define the height */
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: white;
+  min-height: 100px;
+}
 
+.article_preview_image_container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
+.article_preview_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.article_preview_topic_overlay {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  background-color: rgba(134, 134, 134, 0.5);
+  color: white;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  font-weight: bold;
+}
+
+
+.article_preview_meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  font-size: 0.9rem;
+  color: #555;
 }
 
 .article_preview:hover {
   border-color: rgb(0, 187, 255);
   transform: scale(1.01);
 }
+
+.article_preview_image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.article_preview_text {
+  padding: 10px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  overflow: visible;
+  text-overflow: unset;
+  display: block;
+  white-space: normal;
+}
+
+
+.navText{
+
+  all: "unset";
+  color: "blue";
+  cursor: "pointer";
+  display: inline-block;
+  border-radius: 12px;
+  background-color: rgba(0, 255, 255, 0);
+  border: solid 0.1px;
+  margin-left: 5px;
+
+}
+
+
+
+.articleTitletopic{
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0px;
+padding-left: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.articleImage {
+  margin: 0px;
+  padding: 0px;
+  max-width: 100%;
+  height: auto;
+
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
+
+.articleTitle{
+  padding-left: 10px;
+  margin: 0px;
+font-size: 2rem;
+font-weight: bold;
+overflow: visible;
+text-overflow: unset;
+display: block;
+white-space: normal;
+}
+
+.articleTitleDate{
+  padding-left: 10px;
+
+}
+
+.article_full {
+
+display: block;
+  margin: 20px;
+
+  transition: all 0.3s ease
+}
+
+.articles-Nav{
+  margin-top: 10px;
+  margin-left: 20px;
+}
+
+
+
+/* header {
+  border: solid 2px;
+  border-color: rgb(255, 0, 0);
+  display:flexbox
+} */
+
+/* 
+.landing-page {
+  border: solid 2px;
+  border-color: rgb(0, 0, 0);
+}
+
+
+
 
 .topics{
   margin: 0px;
@@ -55,27 +324,7 @@ header {
   unicode-bidi: isolate;
 }
 
-.articleTitlePreview {
-  margin: 0px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-  display: block;
-  font-size: 1em;
-  font-weight: bold;
-  unicode-bidi: isolate;
-}
 
-.articleTitletopic {
-  margin: 0px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-  display: block;
-    font-size: .8em;
-    font-weight: normal;
-    unicode-bidi: isolate;
-}
 
 .articleVotes {
   margin: 0px;
@@ -99,12 +348,6 @@ header {
     unicode-bidi: isolate;
 }
 
-.articleImage {
-  margin: 0px;
-  padding: 0px;
-  max-width: 100%;
-  height: auto;
-}
 
 
 
@@ -162,19 +405,9 @@ margin-left: 20px;
   height:100px;
 }
 
-.headerLogo{
-  width:auto;
-  height:75px;
-  margin-top: 25px;
-}
 
-.navText{
-  all: "unset";
-  color: "blue";
-  cursor: "pointer";
-  display: inline-block;
 
-}
+
 
 
 .topicCardContainer{
@@ -213,4 +446,4 @@ color: red;
 font-size:20px;
 font-weight: bold;
 
-}
+} */
