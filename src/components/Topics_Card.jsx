@@ -1,37 +1,28 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-function TopicsCard({ article, setSelectedTopic }) {
+function TopicsCard({ article }) {
   const navigate = useNavigate();
 
   return (
-    <section
-      className="topic_preview"
-      onClick={() => {
-        navigate(`/articles?topics=${article.topic}`);
-      }}
+    <div
+      onClick={() => navigate(`/articles?topics=${article.topic}`)}
+      className="article_preview"
     >
-      <div className="topicCardTitle">{article.topic}</div>
-      <div className="topic_ArticlePreview ">
-        <div className="articleTitletopic">
-          {article.topic} : {article.author}
-        </div>
-
-        <div className="articleTitlePreview">{article.title}</div>
-
-        <div className="articleTitleDate">{article.created_at}</div>
-
-        <div>
-          <img
-            className="articleImage"
-            src={article.article_img_url}
-            alt={article.title}
-          />
-        </div>
-
-        <div className="articleVotes">Votes: {article.votes}</div>
+      <div className="article_preview_image_container">
+        <img
+          className="article_preview_image"
+          src={article.article_img_url}
+          alt={article.title}
+        />
+        <div className="article_preview_topic_overlay">{article.topic}</div>
       </div>
-    </section>
+
+      <section className="article_preview_text">
+        <div className="topicCardTitle">{article.topic.charAt(0).toUpperCase() + article.topic.slice(1)}</div>
+
+      </section>
+    </div>
   );
 }
 

@@ -56,19 +56,20 @@ function Article_Full({ article, comments, user }) {
               onClick={() => handleVotePatch("inc")}
               className="navText"
             >
-              Add
+              +
             </button>
             <button
               disabled={voteMade === -1}
               onClick={() => handleVotePatch("dec")}
               className="navText"
             >
-              Min
+              -
             </button>
           </div>
         </div>
-
+        <div>
         <Comment_Container article_id={article.article_id} user={user} />
+        </div>
       </div>
     </>
   );

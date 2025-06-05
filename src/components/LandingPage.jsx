@@ -27,15 +27,22 @@ function LandingPage({ topics, setSelectedTopic }) {
   }, [topics]);
 
   return (
-    <section>
-      <h1 class="text-3xl font-normal underline">Hello world!</h1>
-      <div></div>
+    <section className="articles">
+      <div className="articles-Nav">
+        {/* <button className="navText" onClick={() => setSelectedTopic("All")}>
+          Browse All Articles
+        </button> */}
+      </div>
 
-      <div>
-        <h2>Featured Topics</h2>
+      <h2 style={{ paddingLeft: "20px" }}>Select a Topic</h2>
 
+      <div className="articlesContainerPreview">
         {articleForTopics.map((article) => (
-          <TopicsCard article={article} setSelectedTopic={setSelectedTopic} />
+          <TopicsCard
+            key={article.article_id}
+            article={article}
+            setSelectedTopic={setSelectedTopic}
+          />
         ))}
       </div>
     </section>

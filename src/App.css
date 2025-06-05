@@ -24,9 +24,7 @@ html, body {
   padding: 1rem;
 }
 
-.header, .footer {
-
-height: 125px;
+.footer {
   background: white;
   box-shadow: 0 1px 4px rgba(0,0,0,0.1);
   font-size:5rem;
@@ -35,29 +33,42 @@ height: 125px;
   align-items: center;
   display:flex;
   border-radius: 20px;
+  height: 125px;
+}
 
+.header {
+  height: 125px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  font-size: 5rem;
+  font-family: system-ui;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-radius: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* space between logo and text */
+  cursor: pointer;
 }
 
 .headerLogo {
-  padding-top: 0px;
-  margin: 0px 0px 0px 0px;
-  background: white;
-    width: 10%;
-    height: auto;
-
-
+  width: 75px;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
-.headerText{
-  padding: 0px 10px 0px 25px;
-
-  font-size:5rem;
+.headerText {
+  font-size: 5.25rem;
   font-family: system-ui;
   font-weight: 700;
-  align-items: center;
-  display:flex;
-  border-radius: 20px;
-
+  margin: 0;
 }
 
 
@@ -109,18 +120,23 @@ height: 125px;
 
 }
 
-.headerProfileImg{
-
-  border: solid 2px rgb(0, 0, 0);
+.headerProfileImg {
+  width: 75px;
+  height: 75px;
+  border: 2px solid black;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
 }
+
 
 
 .articleTitleRow {
   display: flex;
-  justify-content: space-between; /* spread them out */
-  align-items: center;            /* vertically align */
-  flex-wrap: wrap;                /* allow wrapping on smaller screens */
-  gap: 10px;                      /* optional spacing */
+  justify-content: space-between; 
+  align-items: center; 
+  flex-wrap: wrap; 
+  gap: 10px; 
 }
 
 .articleTitle {
@@ -137,7 +153,7 @@ height: 125px;
 
 
 
-/* PREVIEW ARTICLE STUFF */
+
 
 
 .articlesContainerPreview {
@@ -145,7 +161,7 @@ height: 125px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
   background-color: rgb(255, 255, 255);
-  max-width: 1200px; /* You already defined this in :root */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -156,7 +172,7 @@ height: 125px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  height: auto; /* Let content define the height */
+  height: auto;
   overflow: hidden;
   box-sizing: border-box;
   background-color: white;
@@ -193,7 +209,7 @@ height: 125px;
 .article_preview_meta {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
   gap: 10px;
   padding: 10px;
   font-size: 0.9rem;
@@ -224,20 +240,27 @@ height: 125px;
 }
 
 
-.navText{
-
-  all: "unset";
-  color: "blue";
-  cursor: "pointer";
+.navText {
+  color: rgb(0, 0, 0);
+  cursor: pointer;
   display: inline-block;
   border-radius: 12px;
   background-color: rgba(0, 255, 255, 0);
   border: solid 0.1px;
   margin-left: 5px;
-
 }
 
-
+.deleteReq {
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  border-radius: 12px;
+  background-color: rgba(0, 255, 255, 0);
+  border: 1px solid black;
+  margin-left: 5px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+}
 
 .articleTitletopic{
 
@@ -255,7 +278,7 @@ padding-left: 10px;
   padding: 0px;
   max-width: 100%;
   height: auto;
-
+  border-radius: 20px;
   position: relative;
   width: 100%;
   height: 80%;
@@ -290,160 +313,13 @@ display: block;
   margin-left: 20px;
 }
 
-
-
-/* header {
-  border: solid 2px;
-  border-color: rgb(255, 0, 0);
-  display:flexbox
-} */
-
-/* 
-.landing-page {
-  border: solid 2px;
-  border-color: rgb(0, 0, 0);
-}
-
-
-
-
-.topics{
-  margin: 0px;
-  padding: 5px;
-  text-align: left;
-}
-
-.articleTitle {
-  margin: 0px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-  display: block;
-  font-size: 2em;
-  font-weight: bold;
-  unicode-bidi: isolate;
-}
-
-
-
-.articleVotes {
-  margin: 0px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-  display: block;
-    font-size: .8em;
-    font-weight: normal;
-    unicode-bidi: isolate;
-}
-
-.articleTitleDate {
-  margin: 0px;
-  padding: 0px;
-  text-align: right;
-  background-color: rgb(255, 255, 255);
-  display: block;
-    font-size: .7em;
-    font-weight: normal;
-    unicode-bidi: isolate;
-}
-
-
-
-
-.articlesContainerPreview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  background-color: rgb(214, 214, 214);
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 10px;
-}
-
-.comment {
-margin-bottom: 20px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-
-  font-size: 1em;
-  font-weight: normal;
-
-}
-
-.commentUser {
-  margin: 0px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-
-  font-size: 1em;
-  font-weight: bold;
-
-}
-
-
-
-.commentsHeader {
-  margin-top: 20px;
-margin-left: 20px;
-  padding: 0px;
-  text-align: left;
-  background-color: rgb(255, 255, 255);
-
-  font-size: 1em;
-  font-weight: bold;
-
-}
-
-
-.headerProfileImg{
-  border: solid rgb(82, 82, 82);
-  border-radius: 50%;
-  width:100px;
-  height:100px;
-}
-
-
-
-
-
-
-.topicCardContainer{
-  border: solid black;
-}
-
-
-
-.topic_preview{
-  border: solid 1px;
-  border-color: rgb(17, 0, 255);
-  margin: 20px;
-  cursor: pointer;
-  width: 300px;
-}
-
-.topic_preview:hover {
-  border-color: rgb(0, 187, 255);
-  transform: scale(1.01);
-}
-
 .topicCardTitle{
-  font-size:40px;
+  font-size: 2rem;
   font-weight: bold;
-  align-items:flex-start;
 }
 
-.topic_ArticlePreview {
-  border: solid 1px;
-  border-color: rgb(17, 0, 255);
+
+.Comments{
   margin: 20px;
+
 }
-
-.badTopicErr{
-color: red;
-font-size:20px;
-font-weight: bold;
-
-} */
