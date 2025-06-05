@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getArticles, getCommentsByArticleByID } from "../api";
 import Article_Full from "./Article_Full";
 import Article_Preview from "./Article_Preview";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 
 function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const [articles, setArticles] = useState([]);
@@ -14,6 +14,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
   const navigate = useNavigate();
   const url = useLocation();
   const searchParams = new URLSearchParams(url.search);
+
   useEffect(() => {
     const topicByParams = searchParams.get("topics");
 
@@ -37,6 +38,11 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
 
   const handleArticleSelect = (article_id) => {
     setArticleSelect(article_id);
+    if (article_id !== undefined) {
+      navigate(`/articles/${article_id}`);
+    } else {
+      navigate(`/articles?topics=${selectedTopic}`);
+    }
   };
 
   useEffect(() => {
@@ -67,10 +73,18 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
     });
   }, [articles, articleSelect, sort_by]);
 
+  const { article_id } = useParams();
+
+  useEffect(() => {
+    if (article_id) {
+      setArticleSelect(Number(article_id));
+    }
+  }, [article_id]);
+
   return (
     <section className="articles">
       <section>
-        <div>
+        <div className="articles-Nav">
           <button onClick={() => navigate("/")} className="navText">
             Home
           </button>
@@ -78,6 +92,7 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
             onClick={() => {
               setSelectedTopic("All");
               handleArticleSelect(undefined);
+              navigate("/articles");
             }}
             className="navText"
           >
@@ -94,53 +109,47 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
         </div>
       </section>
 
-      <div className="topics">
-        <label htmlFor="topics">Choose a Topic:</label>
-        <select
-          name="topics"
-          id="topics"
-          value={selectedTopic}
-          onChange={handleTopicChange}
-        >
-          {topics.map((topic) => (
-            <option key={topic.slug} value={topic.slug}>
-              {topic.slug}
-            </option>
-          ))}
-        </select>
-      </div>
+      <div className="filtersBar">
+        <div className="topics">
+          <label htmlFor="topics">Choose a Topic:</label>
+          <select
+            name="topics"
+            id="topics"
+            value={selectedTopic}
+            onChange={handleTopicChange}
+          >
+            {topics.map((topic) => (
+              <option key={topic.slug} value={topic.slug}>
+                {topic.slug}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <section>
-        {badTopicErr && (
-          <div className="badTopicErr">
-            Topic "{searchParams.get("topics")}" was not found.
-          </div>
-        )}
-      </section>
+        <div className="sortBy">
+          <label htmlFor="sortBy">Sort By:</label>
+          <select
+            name="sortBy"
+            id="sortBy"
+            value={sort_by}
+            onChange={(event) => setSort_by(event.target.value)}
+          >
+            <option value="author">Author</option>
+            <option value="title">Title</option>
+            <option value="created_at">Date</option>
+            <option value="votes">Votes</option>
+          </select>
 
-      <div className="sortBy">
-        <label htmlFor="sortBy">Sort By:</label>
-        <select
-          name="sortBy"
-          id="sortBy"
-          value={sort_by}
-          onChange={(event) => setSort_by(event.target.value)}
-        >
-          <option value="author">Author</option>
-          <option value="title">Title</option>
-          <option value="created_at">Date</option>
-          <option value="votes">Votes</option>
-        </select>
-
-        <select
-          name="orderBy"
-          id="orderBy"
-          value={order}
-          onChange={(event) => setOrder(event.target.value)}
-        >
-          <option value="desc">desc</option>
-          <option value="asc">asc</option>
-        </select>
+          <select
+            name="orderBy"
+            id="orderBy"
+            value={order}
+            onChange={(event) => setOrder(event.target.value)}
+          >
+            <option value="desc">desc</option>
+            <option value="asc">asc</option>
+          </select>
+        </div>
       </div>
 
       {articleSelect === undefined ? (
@@ -169,7 +178,9 @@ function Articles_Container({ setSelectedTopic, selectedTopic, topics, user }) {
       ) : (
         <div>
           <Article_Full
-            article={articles.find((a) => a.article_id === articleSelect)}
+            article={articles.find(
+              (article) => article.article_id === articleSelect
+            )}
             comments={comments[articleSelect] || []}
             user={user}
           />

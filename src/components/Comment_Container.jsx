@@ -22,7 +22,6 @@ function Comment_Container({ article_id, user }) {
         setComments(Array.isArray(data) ? data : []);
       })
       .catch((err) => {
-        console.error("Error fetching comments:", err);
         setError("Unable to load comments");
         setComments([]);
       });
@@ -65,7 +64,9 @@ function Comment_Container({ article_id, user }) {
   return (
     <section className="Comments">
       <div>
-        <button onClick={handleToggleAddComment}>Post Comment</button>
+        <button onClick={handleToggleAddComment} className="navText">
+          Post Comment
+        </button>
       </div>
 
       {showAddComment && (

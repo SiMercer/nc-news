@@ -10,7 +10,7 @@ import Error from "./components/Errors.jsx";
 
 function App() {
   const [topics, setTopics] = useState(["All"]);
-  const [selectedTopic, setSelectedTopic] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("All");
   const [user, setUser] = useState("");
 
   useEffect(() => {
@@ -24,8 +24,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Header user={user} />
+    <div className="container">
+      <Header user={user} selectedTopic={selectedTopic} />
       <Routes>
         <Route
           path="/"

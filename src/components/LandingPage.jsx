@@ -28,6 +28,7 @@ function LandingPage({ topics, setSelectedTopic }) {
 
   return (
     <section>
+      <h1 class="text-3xl font-normal underline">Hello world!</h1>
       <div></div>
 
       <div>
